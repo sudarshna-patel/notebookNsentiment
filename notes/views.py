@@ -5,6 +5,7 @@ from django.contrib import messages
 import json
 
 def home(request):
+    print(request)
     if request.user.is_authenticated:
         notes = Note.objects.filter(user=request.user).order_by('-updated_at')[:10]
         all_notes = Note.objects.filter(user=request.user).order_by('-updated_at')
@@ -16,8 +17,6 @@ def home(request):
                 form_data = form.save(commit=False)
                 form_data.user = request.user
                 form_data.save()
-                # # Without this next line the tags won't be saved.
-                # form.save_m2m()
                 form = AddNoteForm()
                 messages.success(request, 'Note added successfully!')
                 return redirect('notes')
@@ -36,7 +35,8 @@ def home(request):
 
 def get_note_details(request, slug):
     note = get_object_or_404(Note, slug=slug)
-    print(note)
+    print('========')
+    print(note.user)
     if note.user != request.user:
         messages.error(request, 'You are not authenticated to perform this action')
         return redirect('notes')
@@ -44,14 +44,10 @@ def get_note_details(request, slug):
     notes = Note.objects.filter(user=request.user).order_by('-updated_at')[:10]
     add_note_form = AddNoteForm()
 
-    # absolute_url = request.build_absolute_uri(note.get_absolute_url())
-
     context = {
         'notes': notes,
         'note_detail': note,
         'add_note_form': add_note_form,
-        # 'get_message_as_markdown': note.get_message_as_markdown()
-        # 'absolute_url': absolute_url
     }
     return render(request, 'note_details.html', context)
 
@@ -89,13 +85,16 @@ def confirm_delete_note(request, pk):
     return render(request, 'modals/delete_note_modal.html', context)
 
 def delete_note(request, pk):
-    note = get_object_or_404(Note, pk=pk)
-    if note.user != request.user:
-        messages.error(request, 'You are not authenticated to perform this action')
+    if request.method == 'POST':
+        note = get_object_or_404(Note, pk=pk)
+        if note.user != request.user:
+            messages.error(request, 'You are not authenticated to perform this action')
+            return redirect('notes')
+        note.delete()
+        messages.success(request, 'Note deleted successfully!')
         return redirect('notes')
-    note.delete()
-    messages.success(request, 'Note deleted successfully!')
-    return redirect('notes')
+    else:
+        return render(request, 'index.html')
 
 
 def search_note(request):
