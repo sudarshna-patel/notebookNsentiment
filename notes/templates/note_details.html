@@ -48,25 +48,7 @@
                             Last Updated: {{ note_detail.updated_at|naturaltime }} <i class="fa fa-info-circle" aria-hidden="true" data-html="true" data-toggle="tooltip" title="Updated at: {{ note_detail.updated_at}} <br> Created at: {{ note_detail.created_at }}"></i><br>
                         </p>
                     </div>
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <p class="float-right">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="shareable_link" value="{{ absolute_url }}" readonly>
-                                <div class="input-group-append">
-                                    <span id="copy_shareable_link" class="input-group-text"><span data-toggle="tooltip" title="Copy Shareable Link" style="cursor: pointer;"><i class="far fa-copy"> </i></span></span>
-                                </div>
-                            </div>
-                        </p>
-                    </div> -->
                 </div>
-
-                <!-- <div class="row">
-                    <div class="col-12">
-                        {% for tag in note_detail.tags.all %}
-                            <a href="{% url 'get_all_notes_tags' tag.slug %}"><span class="badge badge-primary">{{ tag.name }}</span></a>
-                        {% endfor %}
-                    </div>
-                </div> -->
                 <hr>
                 <div class="row">
                     <div class="col-12" style="overflow-wrap: break-word">
