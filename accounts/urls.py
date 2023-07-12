@@ -1,5 +1,4 @@
 from django.urls import path
-from django.urls import include
 from .views import signup, logout_view, change_password
 from django.contrib.auth.views import LoginView
 

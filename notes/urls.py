@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', login_required(home), name='notes'),
-    path('search/', search_note, name='search_note'),
+    path('search/', login_required(search_note), name='search_note'),
     path('<slug:slug>/', login_required(get_note_details), name='note_detail'),
     path('<int:pk>/edit/', login_required(edit_note_details), name='note_details_edit'),
     path('<int:pk>/delete/', login_required(delete_note), name='delete_single_note'),
