@@ -9,7 +9,6 @@ def home(request):
     if request.user.is_authenticated:
         notes = Note.objects.filter(user=request.user).order_by('-updated_at')[:10]
         all_notes = Note.objects.filter(user=request.user).order_by('-updated_at')
-        # paginator = Paginator(all_notes, 15)
 
         if request.method == 'POST':
             form = AddNoteForm(request.POST)
