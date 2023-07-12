@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:pk>/edit/', login_required(edit_note_details), name='note_details_edit'),
     path('<int:pk>/delete/', login_required(delete_note), name='delete_single_note'),
     path('<int:pk>/delete/confirm/', login_required(confirm_delete_note), name='confirm_delete_note'),
+
+    # testing 
 ]
