@@ -13,11 +13,6 @@ from sentiment_model.sentiment_formatting import formatted_text
 
 
 def generate_unique_slug(_class, field):
-    """
-        return unique slug if origin slug is exist.
-        eg: `foo-bar` => `foo-bar-1`
-        :param `field` is specific field for title.
-    """
     origin_slug = slugify(field)
     unique_slug = origin_slug
     numb = 1
